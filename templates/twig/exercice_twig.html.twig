@@ -1,0 +1,73 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}
+    Exercice Twig
+{% endblock %}
+
+{% block stylesheets %}
+    {{ parent() }}
+    <link rel="stylesheet" href="css/exercice-twig.css">
+{% endblock %}
+
+
+{% block body %}
+
+    {{ dump(user) }}
+    <h2>
+        Je m'appelle {{ user.prenom }} {{ user.nom }}
+        et j'ai {{ age }} ans et j'habite à {{ ville }}.
+    </h2>
+
+    {# Conditions #}
+    {% if age > 18 %}
+        <h3>Je suis majeur</h3>
+    {% elseif age > 15 %}
+        <h3>J'ai plus de 15 ans</h3>
+    {% else %}
+        <h3>J'ai moins de 15 ans</h3>
+    {% endif %}
+
+    <br>
+    <a href="{{ path('exercice_twig_noms') }}" class="btn btn-small btn-primary">Ex. Twig noms</a>
+
+    <br><br>
+    Je suis {{ age > 18 ? 'majeur' : 'mineur' }}.
+
+    <hr>
+    {# Boucles #}
+    {% for number in 1..5 %}
+        {{ loop.index }}
+        ({{ loop.index is even ? 'pair' : 'impair' }})
+        {{ loop.first ? '(premier)' }}
+        {{ loop.last ? '(dernier)' }}
+        <br>
+    {% endfor %}
+    <hr>
+
+    {% set users = ['Victor', 'Jean', 'Paul', 'Luc', 'Clément'] %}
+    <ul class="list-group">
+        {% for user in users %}
+            <li class="list-group-item list-group-item-{{ loop.index is even ? 'secondary' : 'dark' }}">
+                {{ user }}
+            </li>
+        {% endfor %}
+    </ul>
+
+{% endblock %}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
