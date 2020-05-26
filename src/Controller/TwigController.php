@@ -51,5 +51,13 @@ class TwigController extends AbstractController
         ]);
     }
 
+    /**
+     * @Route("twig-assets", name="twig_assets")
+     */
+    public function twigAssets() {
+
+        return $this->render('twig/twig_assets.html.twig');
+    }
+
 
 }
