@@ -1,5 +1,7 @@
 <!DOCTYPE html>
 <html>
+    {# On récupère le nom de la route #}
+    {% set ROUTE_NAME = app.request.attributes.get('_route') %}
     <head>
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
@@ -12,6 +14,21 @@
     <body>
 
         <div class="container">
+
+            {#
+                En fonction de la route (page) sur laquelle on se trouve,
+                on, on affiche soit le header avec les articles de blog,
+                soit un header plus simple
+            #}
+            {% if ROUTE_NAME in [ 'twig_assets' ] %}
+                {{ render(controller(
+                    'App\\Controller\\TwigController::headerBlog',
+                    { 'nbArticles': app.request.query.get('nb_articles', 3) }
+                )) }}
+            {% else %}
+                {% include '_partials/header.html.twig' %}
+            {% endif %}
+
             {% block body %}{% endblock %}
         </div>
 

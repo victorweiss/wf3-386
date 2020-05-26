@@ -56,7 +56,7 @@ class TwigController extends AbstractController
      */
     public function twigAssets() {
         
-        for ($i=0; $i<=11; $i++) {
+        for ($i=0; $i< 12; $i++) {
             $articles[] = [
                 'titre' => 'Mon titre '.$i,
                 'soustitre' => 'Mon soustitre '.$i,
@@ -68,5 +68,23 @@ class TwigController extends AbstractController
         ]);
     }
 
+
+    // N'a pas besoin de @Route
+    // Puisqu'il n'y a pas d'URL spécifique pour afficher le header
+    // Il se charge de récupérer les articles de blog
+    // Et de render() la vue, avec les $articles
+    public function headerBlog($nbArticles = 3) {
+        $articles = [];
+        for ($i=0; $i< $nbArticles; $i++) {
+            $articles[] = [
+                'titre' => 'Mon titre '.$i,
+                'soustitre' => 'Mon soustitre '.$i,
+            ];
+        }
+
+        return $this->render('_partials/header_blog.html.twig', [
+            'articles' => $articles
+        ]);
+    }
 
 }
