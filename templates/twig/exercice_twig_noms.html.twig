@@ -4,5 +4,80 @@
 
 {% block body %}
     <a href="{{ path('exercice_twig') }}" class="btn btn-sm btn-primary">Page Exercice Twig</a>
-    blabla
+
+    <br><br>
+
+{#    {{ dump(personnes) }}#}
+
+    <h4>Question 1 : Afficher toutes les personnes</h4>
+    {% for p in personnes %}
+        <b>{{ p.nom }} {{ p.prenom }}</b> ({{ p.statut }}),
+        <i>date de naissance: {{ p.naissance|date('d-m-Y') }}</i>
+        <br>
+    {% endfor %}
+    <br><br>
+
+    <h4>Question 2 : Afficher uniquement les "Dupont"</h4>
+    {% for p in personnes %}
+        {% if p.nom == 'Dupont' %}
+            <b>{{ p.nom }} {{ p.prenom }}</b> ({{ p.statut }}),
+            <i>date de naissance: {{ p.naissance|date('d-m-Y') }}</i>
+            <br>
+        {% endif %}
+    {% endfor %}
+    <br><br>
+
+    <h4>Question 3 : Afficher les 3 permières lignes, les noms de familles en majuscule</h4>
+    {% for p in personnes|slice(0,3) %}
+        <b>{{ p.nom|upper }} {{ p.prenom }}</b> ({{ p.statut }}),
+        <i>date de naissance: {{ p.naissance|date('d-m-Y') }}</i>
+        <br>
+    {% endfor %}
+    <br><br>
+
+    <h4>Question 4 : Afficher uniquement les personnes nées après 1950</h4>
+    {% for p in personnes %}
+        {% if p.naissance|date('Y') > 1950 %}
+            <b>{{ p.nom }} {{ p.prenom }}</b> ({{ p.statut }}),
+            <i>date de naissance: {{ p.naissance|date('d-m-Y') }}</i>
+            <br>
+        {% endif %}
+    {% endfor %}
+    <br><br>
+
+    <h4>Question 5 : Afficher du plus vieux au plus jeune</h4>
+    {% for p in personnes|sort((a, b) => a.naissance <=> b.naissance) %}
+        <b>{{ p.nom }} {{ p.prenom }}</b> ({{ p.statut }}),
+        <i>date de naissance: {{ p.naissance|date('d-m-Y') }}</i>
+        <br>
+    {% endfor %}
+    <br><br>
+
+    <h4>Question 6 : Afficher la 1ère ligne en bleu, la dernière en rouge</h4>
+    {% for p in personnes %}
+        <p class="m-0 p-0 text-{{ loop.first ? 'primary' }}{{ loop.last ? 'danger' }}">
+            <b>{{ p.nom }} {{ p.prenom }}</b> ({{ p.statut }}),
+            <i>date de naissance: {{ p.naissance|date('d-m-Y') }}</i>
+        </p>
+    {% endfor %}
+    <br><br>
+
+    <h4>Question 7 : Sautez une ligne toutes les 2 lignes</h4>
+    {% for p in personnes %}
+        <b>{{ p.nom }} {{ p.prenom }}</b> ({{ p.statut }}),
+        <i>date de naissance: {{ p.naissance|date('d-m-Y') }}</i>
+        <br>
+{#        {{ not loop.index % 2 ? '<br>' }}#}
+{#        {{ loop.index is even ? '<br>' }}#}
+
+        {% if loop.index is even %}
+            <br>
+        {% endif %}
+    {% endfor %}
+    <br><br>
+
+
+
+<br><br><br><br><br><br><br><br><br><br><br><br><br><br>
+    <br><br><br><br><br><br><br><br><br><br><br><br><br><br>
 {% endblock %}

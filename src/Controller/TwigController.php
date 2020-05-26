@@ -46,7 +46,9 @@ class TwigController extends AbstractController
             array( 'nom' => 'Dupont', 	'prenom' => 'Marie', 		'statut' => 'Mère', 		'naissance' => new \DateTime('1964-01-24') ),
         );
 
-        return $this->render('twig/exercice_twig_noms.html.twig');
+        return $this->render('twig/exercice_twig_noms.html.twig', [
+            'personnes' => $personnes
+        ]);
     }
 
 
