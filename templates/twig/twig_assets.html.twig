@@ -17,8 +17,12 @@
         <a class="btn btn-primary btn-lg" href="#" id="monButton" role="button">Learn more</a>
     </div>
 
-    <div>
-        <img src="{{ asset('images/dev.jpg') }}" alt="" class="img-fluid">
+    <div class="row">
+        {% for articles in articles %}
+            <div class="col-md-6 col-lg-4 col-xl-3 mb-4">
+                {% include 'twig/_partials/blog_item.html.twig' with { withSoustitre: true, article: articles } %}
+            </div>
+        {% endfor %}
     </div>
 
 {% endblock %}

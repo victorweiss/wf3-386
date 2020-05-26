@@ -55,8 +55,17 @@ class TwigController extends AbstractController
      * @Route("twig-assets", name="twig_assets")
      */
     public function twigAssets() {
+        
+        for ($i=0; $i<=11; $i++) {
+            $articles[] = [
+                'titre' => 'Mon titre '.$i,
+                'soustitre' => 'Mon soustitre '.$i,
+            ];
+        }
 
-        return $this->render('twig/twig_assets.html.twig');
+        return $this->render('twig/twig_assets.html.twig', [
+            'articles' => $articles
+        ]);
     }
 
 
