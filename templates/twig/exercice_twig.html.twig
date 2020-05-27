@@ -54,6 +54,15 @@
             </li>
         {% endfor %}
     </ul>
+    <hr>
+
+    Cet article coûte {{ 10.99|prix('$') }} <br>
+    {{ 9|prix }} <br>
+    {{ 1540.56|prix('£') }} <br>
+
+    <hr>
+
+    {{ blogItem(12) }}
 
 {% endblock %}
 
