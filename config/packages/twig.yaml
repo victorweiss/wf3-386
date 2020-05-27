@@ -1,2 +1,8 @@
 twig:
     default_path: '%kernel.project_dir%/templates'
+    globals:
+        moi: Victor Weiss
+        PROJECT_NAME: Mon Super Site
+        ADMIN_NAME: '%ADMIN_NAME%'
+        SOCIALS:
+            FB: https://facebook.com/maPageFb

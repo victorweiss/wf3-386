@@ -1,3 +1,7 @@
 #index:
 #    path: /
 #    controller: App\Controller\DefaultController::index
+
+#exercice_twig:
+#  path: /exercice-twig
+#  controller: App\Controller\TwigController::exerciceTwig
