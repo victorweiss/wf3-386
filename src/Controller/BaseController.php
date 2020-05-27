@@ -2,7 +2,9 @@
 
 namespace App\Controller;
 
+use App\Service\EmailService;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\Annotation\Route;
 
 class BaseController extends AbstractController
@@ -39,12 +41,31 @@ class BaseController extends AbstractController
     /**
      * @Route("/contact", name="contact")
      */
-    public function contact()
+    public function contact(Request $request, EmailService $emailService)
     {
-
+        if ($request->isMethod('POST')) {
+            $email = $request->request->get('email');
+            $message = $request->request->get('message');
+            $emailService->sendEmail($email, $message);
+            dd($email, $message);
+        }
 
         return $this->render('base/contact.html.twig', [
 
         ]);
     }
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
