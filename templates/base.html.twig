@@ -14,23 +14,9 @@
     <body>
 
         <div class="container">
-
-            {#
-                En fonction de la route (page) sur laquelle on se trouve,
-                on, on affiche soit le header avec les articles de blog,
-                soit un header plus simple
-            #}
-            {% if ROUTE_NAME in [ 'twig_assets', 'exercice_twig' ] %}
-                {{ render(controller(
-                    'App\\Controller\\TwigController::headerBlog',
-                    {
-                        'nbArticles': app.request.query.get('nb_articles', 3),
-                        'ROUTE_NAME': ROUTE_NAME
-                    }
-                )) }}
-            {% else %}
-                {% include '_partials/header.html.twig' %}
-            {% endif %}
+            {{ render(controller('App\\Controller\\BaseController::header', {
+                ROUTE_NAME: ROUTE_NAME
+            })) }}
 
             {% block body %}{% endblock %}
         </div>
