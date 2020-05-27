@@ -21,12 +21,23 @@ class BlogExtension extends AbstractExtension
     public function getFunctions(): array
     {
         return [
-            new TwigFunction('blogItem', [$this, 'renderBlogItem']),
+            new TwigFunction('blogItem', [$this, 'renderBlogItem'], ['is_safe' => ['html']]),
         ];
     }
 
     public function renderBlogItem($id)
     {
-        return $id;
+        // Requête SQL
+        $article['titre'] = 'Titre '.$id;
+        sleep(2);
+
+        // Afficher le HTML
+        $html = "<div class='card'>
+                    <div class='card-body'>
+                        <h5 class='card-title'>". $article['titre'] ."</h5>
+                    </div>
+                </div>";
+
+        return $html;
     }
 }
