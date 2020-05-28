@@ -3,7 +3,7 @@
 namespace App\Service;
 
 use Symfony\Component\Mailer\MailerInterface;
-use Symfony\Component\Mime\Email;
+use Symfony\Bridge\Twig\Mime\TemplatedEmail;
 
 class EmailService {
 
@@ -14,15 +14,20 @@ class EmailService {
     }
 
     public function sendEmail($email, $message) {
-        $email = (new Email())
-            ->from($email)
+        $email = (new TemplatedEmail())
+            ->from('victor.weiss.be@gmail.com')
             ->to('demo.wf3.victor@gmail.com')
             //->cc('cc@example.com')
             //->bcc('bcc@example.com')
             // ->replyTo('fabien@example.com')
             //->priority(Email::PRIORITY_HIGH)
             ->subject('[CONTACT DU SITE]')
-            ->html('<p>Nouveau message du site : '. $message .'</p>');
+            ->htmlTemplate('emails/contact.email.twig')
+            ->context([
+                'mail' => $email,
+                'message' => $message,
+            ])
+        ;
 
         $this->mailer->send($email);
     }

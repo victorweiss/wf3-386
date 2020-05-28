@@ -1,0 +1,12 @@
+{% extends "emails/base.email.twig" %}
+
+{% block body %}
+    <div>
+        <span style="color: blue;">Bonjour Victor,</span>
+        <br><br>
+        Vous avez reçu un message de : <b>{{ mail }}</b>
+        <br><br>
+        <u>Message :</u> <br><br>
+        {{ message|nl2br }}
+    </div>
+{% endblock %}
