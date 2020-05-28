@@ -7,16 +7,7 @@
     <div class="jumbotron">
         <h1 class="display-4">Page contact.</h1>
         <p class="lead">Vous répondons sous 24h</p>
-
-        {# Message Flash #}
-        {% for label, messages in app.flashes %}
-            {% for message in messages %}
-                <div class="alert alert-{{ label }}">
-                    {{ message }}
-                </div>
-            {% endfor %}
-        {% endfor %}
-
+        {% include '_partials/flash.html.twig' %}
         <hr class="my-4">
 
         <form action="{{ path('contact') }}" method="POST">
@@ -37,6 +28,5 @@
 
         </form>
     </div>
-
-
+    
 {% endblock %}
