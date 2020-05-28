@@ -4,5 +4,6 @@ twig:
         moi: Victor Weiss
         PROJECT_NAME: Mon Super Site
         ADMIN_NAME: '%ADMIN_NAME%'
+        MY_EMAIL: '%MY_EMAIL%'
         SOCIALS:
             FB: https://facebook.com/maPageFb
