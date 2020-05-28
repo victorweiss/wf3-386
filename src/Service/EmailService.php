@@ -16,21 +16,15 @@ class EmailService {
         $this->mailer = $mailer;
     }
 
-    public function sendEmail($email, $message) {
+    public function sendEmail($data) {
         $email = (new TemplatedEmail())
-            ->from('victor.weiss.be@gmail.com')
-            ->to('demo.wf3.victor@gmail.com')
-            //->cc('cc@example.com')
-            //->bcc('bcc@example.com')
-            // ->replyTo('fabien@example.com')
-            //->priority(Email::PRIORITY_HIGH)
-            ->subject('[CONTACT DU SITE]')
-            ->htmlTemplate('emails/contact.email.twig')
-            ->context([
-                'mail' => $email,
-                'message' => $message,
-            ])
+            ->from($data['from'] ?? 'demo.wf3.victor@gmail.com')
+            ->to($data['to'] ?? 'demo.wf3.victor@gmail.com')
+            ->subject($data['subject'])
+            ->htmlTemplate($data['template'])
+            ->context($data['context'])
         ;
+        // dd($email);
 
         try {
             $this->mailer->send($email);
@@ -39,5 +33,22 @@ class EmailService {
             throw $e;
         }
     }
+
+    public function contact($email, $message) {
+        return $this->sendEmail([
+            'subject' => "[CONTACT DU SITE]",
+            'template' => 'emails/contact.email.twig',
+            'context' => [ 'mail' => $email, 'message' => $message ],
+        ]);
+    }
+
+    public function contact_pro($data) {
+        return $this->sendEmail([
+            'subject' => $data['sujet'],
+            'template' => 'emails/contact_pro.email.twig',
+            'context' => $data,
+        ]);
+    }
+
 
 }

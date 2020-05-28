@@ -1,0 +1,57 @@
+{% extends "base.html.twig" %}
+
+{% block title %}
+    Formulaire de contact pro
+{% endblock %}
+
+{% block body %}
+
+<div class="jumbotron">
+    <h1 class="display-4">Page contact PRO</h1>
+    <p class="lead">Vous répondons sous 12h</p>
+    {% include '_partials/flash.html.twig' %}
+    <hr class="my-4">
+
+    <form action="{{ path('contact_pro') }}" method="POST">
+
+        <div class="form-group">
+            <label for="nom">Nom</label>
+            <input type="text" class="form-control" id="nom" name="nom" value="Weiss" />
+        </div>
+
+        <div class="form-group">
+            <label for="prenom">Prénom</label>
+            <input type="text" class="form-control" id="prenom" name="prenom" value="Victor" />
+        </div>
+
+        <div class="form-group">
+            <label for="societe">Société</label>
+            <input type="text" class="form-control" id="societe" name="societe" value="VW Digital" />
+        </div>
+
+        <div class="form-group">
+            <label for="sujet">Sujet</label>
+            <input type="text" class="form-control" id="sujet" name="sujet" value="question importante..." />
+        </div>
+
+        <div class="form-group">
+            <label for="mail">Email</label>
+            <input type="mail" class="form-control" id="mail" name="mail" value="victor@email.com" />
+        </div>
+
+        <div class="form-group">
+            <label for="message">Message</label>
+            <textarea name="message" class="form-control" id="message" rows="6">Bonjour à tous... ça va ?</textarea>
+        </div>
+
+        <div class="text-right">
+            <button type="submit" class="btn btn-primary">Envoyer</button>
+        </div>
+
+    </form>
+
+</div>
+
+{% endblock %}
+
+

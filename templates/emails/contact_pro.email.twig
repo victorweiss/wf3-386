@@ -1,0 +1,16 @@
+{% extends "emails/base.email.twig" %}
+
+{% block body %}
+    <div>
+        Message du site : <br><br>
+        Sujet: <u>{{ sujet }}</u> <br><br>
+        Nom: {{ nom }}, <br>
+        Prénom: {{ prenom }}, <br>
+        Société: {{ societe }}, <br>
+        Email: {{ mail }}, <br>
+        <br>
+        Message : <br><br>
+        {{ message|nl2br }}
+    </div>
+{% endblock %}
+
