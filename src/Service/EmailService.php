@@ -9,6 +9,9 @@ class EmailService {
 
     private $mailer;
 
+    // Injection de service
+    // On injecte MailerInterface dans notre classe EmailService
+    // pour qu'il soit accessible dans toutes les méthodes de la classe
     public function __construct(MailerInterface $mailer) {
         $this->mailer = $mailer;
     }
@@ -29,7 +32,12 @@ class EmailService {
             ])
         ;
 
-        $this->mailer->send($email);
+        try {
+            $this->mailer->send($email);
+            return true;
+        } catch (\Exception $e) {
+            throw $e;
+        }
     }
 
 }

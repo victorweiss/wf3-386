@@ -43,10 +43,26 @@ class BaseController extends AbstractController
      */
     public function contact(Request $request, EmailService $emailService)
     {
+
+        // Si on a POSTé le formulaire
         if ($request->isMethod('POST')) {
+
+            // On récupère les 2 input du formulaire
             $email = $request->request->get('email');
             $message = $request->request->get('message');
-            $emailService->sendEmail($email, $message);
+
+            // On envoie l'email
+            $send = $emailService->sendEmail($email, $message);
+
+            // Si il a été envoyé, ou non, on affiche success / danger
+            if ($send === true) {
+                $this->addFlash('success', "Nous avons bien reçu votre message.");
+            }else{
+                $this->addFlash('danger', "Une erreur est survenue.");
+            }
+
+            // On redirige après le traitement du form.
+            return $this->redirectToRoute('contact');
         }
 
         return $this->render('base/contact.html.twig', [
