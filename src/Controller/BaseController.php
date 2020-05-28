@@ -47,7 +47,6 @@ class BaseController extends AbstractController
             $email = $request->request->get('email');
             $message = $request->request->get('message');
             $emailService->sendEmail($email, $message);
-            dd($email, $message);
         }
 
         return $this->render('base/contact.html.twig', [
