@@ -3,6 +3,7 @@
 namespace App\Service;
 
 use App\Entity\Contact;
+use App\Entity\ContactPro;
 use Symfony\Component\Mailer\MailerInterface;
 use Symfony\Bridge\Twig\Mime\TemplatedEmail;
 
@@ -40,7 +41,7 @@ class EmailService {
         // dd($email);
 
         try {
-            $this->mailer->send($email);
+            // $this->mailer->send($email);
             return true;
         } catch (\Exception $e) {
             throw $e;
@@ -57,11 +58,13 @@ class EmailService {
         ]);
     }
 
-    public function contact_pro(array $data) {
+    public function contact_pro(ContactPro $contactPro) {
         return $this->sendEmail([
-            'subject' => $data['sujet'],
+            'subject' => $contactPro->getSujet(),
             'template' => 'emails/contact_pro.email.twig',
-            'context' => $data,
+            'context' => [
+                'contactPro' => $contactPro
+            ]
         ]);
     }
 

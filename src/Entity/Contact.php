@@ -33,6 +33,12 @@ class Contact
      */
     private $createdAt;
 
+    /**
+     * @ORM\ManyToOne(targetEntity=Profil::class, inversedBy="contacts")
+     * @ORM\JoinColumn(nullable=false)
+     */
+    private $profil;
+
     public function __construct() {
         $this->createdAt = new DateTime();
     }
@@ -74,6 +80,18 @@ class Contact
     public function setCreatedAt(\DateTimeInterface $createdAt): self
     {
         $this->createdAt = $createdAt;
+
+        return $this;
+    }
+
+    public function getProfil(): ?Profil
+    {
+        return $this->profil;
+    }
+
+    public function setProfil(?Profil $profil): self
+    {
+        $this->profil = $profil;
 
         return $this;
     }

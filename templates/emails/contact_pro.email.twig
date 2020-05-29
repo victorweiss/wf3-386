@@ -3,14 +3,14 @@
 {% block body %}
     <div>
         Message du site : <br><br>
-        Sujet: <u>{{ sujet }}</u> <br><br>
-        Nom: {{ nom }}, <br>
-        Prénom: {{ prenom }}, <br>
-        Société: {{ societe }}, <br>
-        Email: {{ mail }}, <br>
+        Sujet: <u>{{ contactPro.sujet }}</u> <br><br>
+        Nom: {{ contactPro.nom }}, <br>
+        Prénom: {{ contactPro.prenom }}, <br>
+        Société: {{ contactPro.societe }}, <br>
+        Email: {{ contactPro.email }}, <br>
         <br>
         Message : <br><br>
-        {{ message|nl2br }}
+        {{ contactPro.message|nl2br }}
     </div>
 {% endblock %}
 

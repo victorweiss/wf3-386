@@ -3,7 +3,10 @@
 namespace App\Controller;
 
 use App\Entity\Contact;
+use App\Entity\ContactPro;
+use App\Repository\ContactProRepository;
 use App\Repository\ContactRepository;
+use App\Repository\ProfilRepository;
 use App\Service\EmailService;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
@@ -46,7 +49,8 @@ class BaseController extends AbstractController
     public function contact(
         Request $request,
         EmailService $emailService,
-        ContactRepository $contactRepository
+        ContactRepository $contactRepository,
+        ProfilRepository $profilRepository
     ) {
         $em = $this->getDoctrine()->getManager();
 
@@ -57,10 +61,15 @@ class BaseController extends AbstractController
             $email = $request->request->get('email');
             $message = $request->request->get('message');
 
-            // dd($email, $message);
+            // Je récupère le profil de Victor
+            $victor = $profilRepository->find(1);
+            // dd($victor); // Je vérifie que je l'ai bien récupéré
+            
             $contact = (new Contact())
                 ->setEmail($email)
-                ->setMessage($message);
+                ->setMessage($message)
+                ->setProfil($victor)
+            ;
 
             $em->persist($contact);
             $em->flush();
@@ -110,7 +119,21 @@ class BaseController extends AbstractController
 
         if ($request->isMethod('POST')) {
             $data = $request->request->all();
-            $send = $emailService->contact_pro($data);
+            
+            $contactPro = (new ContactPro())
+                ->setNom($data['nom'])
+                ->setPrenom($data['prenom'])
+                ->setSociete($data['societe'])
+                ->setSujet($data['sujet'])
+                ->setEmail($data['mail'])
+                ->setMessage($data['message'])
+                ->setCreatedAt( new \DateTime() );
+
+            $em = $this->getDoctrine()->getManager();
+            $em->persist($contactPro);
+            $em->flush();
+
+            $send = $emailService->contact_pro($contactPro);
             if ($send === true) {
                 $this->addFlash('success', "Merci, nous avons reçu votre message.");
             }else{
@@ -120,6 +143,32 @@ class BaseController extends AbstractController
         }
 
         return $this->render('base/contact_pro.html.twig');
+    }
+    
+    /**
+     * @Route("contact-pro-search", name="contact_pro_search")
+     */
+    public function contactProSearch(ContactProRepository $contactProRepository) {
+        // 2ème façon de récupérer le Repository
+        // $em = $this->getDoctrine()->getManager();
+        // $contactProRepository = $em->getRepository(ContactPro::class);
+
+        // $prenom = 'Fred';
+        // $contacts = $contactProRepository->findContactsByPrenom($prenom);
+
+        $date = new \DateTime('2 days ago');
+        dd($date);
+
+        $search = [
+            'date' => new \DateTime('2020-05-28'),
+            // 'date' => null,
+            'prenom' => null,
+            'nom' => 'Weiss'
+        ];
+        $contacts = $contactProRepository->findContactsRecent($search);
+        
+        dd($contacts);
+
     }
 }
 
