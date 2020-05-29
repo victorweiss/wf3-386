@@ -4,9 +4,9 @@
     <div>
         <span style="color: blue;">Bonjour Victor,</span>
         <br><br>
-        Vous avez reçu un message de : <b>{{ mail }}</b>
+        Vous avez reçu un message de : <b>{{ contact.email }}</b>
         <br><br>
         <u>Message :</u> <br><br>
-        {{ message|nl2br }}
+        {{ contact.message|nl2br }}
     </div>
 {% endblock %}

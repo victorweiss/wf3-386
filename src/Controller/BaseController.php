@@ -2,6 +2,8 @@
 
 namespace App\Controller;
 
+use App\Entity\Contact;
+use App\Repository\ContactRepository;
 use App\Service\EmailService;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
@@ -41,8 +43,11 @@ class BaseController extends AbstractController
     /**
      * @Route("/contact", name="contact")
      */
-    public function contact(Request $request, EmailService $emailService)
-    {
+    public function contact(
+        Request $request,
+        EmailService $emailService,
+        ContactRepository $contactRepository
+    ) {
 
         // Si on a POSTé le formulaire
         if ($request->isMethod('POST')) {
@@ -51,8 +56,17 @@ class BaseController extends AbstractController
             $email = $request->request->get('email');
             $message = $request->request->get('message');
 
+            // dd($email, $message);
+            $contact = (new Contact())
+                ->setEmail($email)
+                ->setMessage($message);
+
+            $em = $this->getDoctrine()->getManager();
+            $em->persist($contact);
+            $em->flush();
+
             // On envoie l'email
-            $send = $emailService->contact($email, $message);
+            $send = $emailService->contact($contact);
 
             // Si il a été envoyé, ou non, on affiche success / danger
             if ($send === true) {
@@ -65,8 +79,15 @@ class BaseController extends AbstractController
             return $this->redirectToRoute('contact');
         }
 
-        return $this->render('base/contact.html.twig', [
 
+        // $contacts = $contactRepository->findAll();
+        $contacts = $contactRepository->findBy(
+            array('email' => 'victor@email.com'),
+            array('createdAt' => 'DESC')
+        );
+
+        return $this->render('base/contact.html.twig', [
+            'contacts' => $contacts
         ]);
     }
 

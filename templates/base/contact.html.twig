@@ -28,6 +28,17 @@
             </div>
 
         </form>
+
+        <hr>
+
+        {% for contact in contacts %}
+            <div class="border rounded mb-4 p-4">
+                <h5>{{ contact.email }} (le {{ contact.createdAt|date('d/m/Y à H:i') }})</h5>
+                <p>{{ contact.message|nl2br }}</p>
+            </div>
+        {% endfor %}
+
+
     </div>
     
 {% endblock %}
