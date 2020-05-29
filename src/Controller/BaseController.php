@@ -48,6 +48,7 @@ class BaseController extends AbstractController
         EmailService $emailService,
         ContactRepository $contactRepository
     ) {
+        $em = $this->getDoctrine()->getManager();
 
         // Si on a POSTé le formulaire
         if ($request->isMethod('POST')) {
@@ -61,7 +62,6 @@ class BaseController extends AbstractController
                 ->setEmail($email)
                 ->setMessage($message);
 
-            $em = $this->getDoctrine()->getManager();
             $em->persist($contact);
             $em->flush();
 
@@ -85,6 +85,18 @@ class BaseController extends AbstractController
             array('email' => 'victor@email.com'),
             array('createdAt' => 'DESC')
         );
+
+        // Modifier un objet
+        // $contact = $contactRepository->find(1);
+        // $contact->setEmail('jean@email.com');
+        // $em->flush();
+        
+        // Supprimer un objet
+        $contact = $contactRepository->find(1);
+        if ($contact) {
+            $em->remove($contact);
+            $em->flush();
+        }
 
         return $this->render('base/contact.html.twig', [
             'contacts' => $contacts
