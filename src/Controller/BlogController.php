@@ -26,4 +26,15 @@ class BlogController extends AbstractController
 
         ]);
     }
+
+    /**
+     * @Route("/blog/nouvel-article", name="blog_new")
+     */
+    public function blog_new() {
+
+        return $this->render('blog/blog_new.html.twig', [
+
+        ]);
+    }
+
 }

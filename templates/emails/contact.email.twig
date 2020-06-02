@@ -6,6 +6,8 @@
         <br><br>
         Vous avez reçu un message de : <b>{{ contact.email }}</b>
         <br><br>
+        rendez vous sur le site : <a href="{{ DOMAIN_NAME ~ path('accueil') }}">Accueil</a>
+        <br><br>
         <u>Message :</u> <br><br>
         {{ contact.message|nl2br }}
     </div>

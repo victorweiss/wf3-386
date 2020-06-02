@@ -64,7 +64,7 @@ class BaseController extends AbstractController
             // Je récupère le profil de Victor
             $victor = $profilRepository->find(1);
             // dd($victor); // Je vérifie que je l'ai bien récupéré
-            
+
             $contact = (new Contact())
                 ->setEmail($email)
                 ->setMessage($message)
