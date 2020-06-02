@@ -18,6 +18,7 @@ class ArticleType extends AbstractType
                 'label' => "Titre de l'article",
                 'attr' => [
                     'placeholder' => "Indiquez le titre...",
+                    'minlength' => 5,
                 ],
             ])
             ->add('text', TextareaType::class, [

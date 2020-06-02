@@ -11,13 +11,13 @@
     </div>
 
     <div class="row">
-        {% for article in 1..12 %}
+        {% for article in articles %}
             <div class="col-md-4">
                 <div class="card">
                     <div class="card-body">
-                        <h5 class="card-title">Article {{ loop.index }}</h5>
-                        <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
-                        <a href="{{ path('blog_single') }}" class="btn btn-primary">Go somewhere</a>
+                        <h5 class="card-title">{{ article.title }}</h5>
+                        <p class="card-text">{{ article.text|nl2br }}</p>
+                        <a href="{{ path('blog_single', { slug: article.slug }) }}" class="btn btn-primary">Lire</a>
                     </div>
                 </div>
             </div>

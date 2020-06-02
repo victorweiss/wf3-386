@@ -8,18 +8,14 @@
         <div class="col-lg-8 mx-auto">
 
             <div class="jumbotron">
+                <a href="{{ path('blog_new', { slug: article.slug }) }}" class="float-right">Modifier --></a>
                 <a href="{{ path('blog_list') }}"><-- Retour au blog</a>
-                <h1 class="display-4">Mon article</h1>
-                <p class="lead">Titre de l'article</p>
+                <h1 class="display-4">{{ article.title }}</h1>
                 <hr class="my-4">
             </div>
 
             <div>
-                <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. At fuga incidunt inventore sunt tempora? Assumenda ea eaque esse fuga, id ipsam iure, laudantium, molestiae molestias omnis quae rerum sed voluptatem.</p>
-                <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. At fuga incidunt inventore sunt tempora? Assumenda ea eaque esse fuga, id ipsam iure, laudantium, molestiae molestias omnis quae rerum sed voluptatem.</p>
-                <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. At fuga incidunt inventore sunt tempora? Assumenda ea eaque esse fuga, id ipsam iure, laudantium, molestiae molestias omnis quae rerum sed voluptatem.</p>
-                <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. At fuga incidunt inventore sunt tempora? Assumenda ea eaque esse fuga, id ipsam iure, laudantium, molestiae molestias omnis quae rerum sed voluptatem.</p>
-                <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. At fuga incidunt inventore sunt tempora? Assumenda ea eaque esse fuga, id ipsam iure, laudantium, molestiae molestias omnis quae rerum sed voluptatem.</p>
+                {{ article.text|nl2br }}
             </div>
 
         </div>

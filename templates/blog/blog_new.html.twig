@@ -5,8 +5,12 @@
 {% block body %}
 
     <div class="jumbotron">
-        <h1 class="display-4">Nouvel Article</h1>
-        <p class="lead">Créez un article</p>
+        {% if not new %}
+            <a href="{{ path('blog_single', { slug: article.slug }) }}" class="float-right">Voir l'article --></a>
+        {% endif %}
+        <h1 class="display-4">
+            {{ new ? 'Nouvel Article' : article.title }}
+        </h1>
         {% include '_partials/flash.html.twig' %}
         <hr class="my-4">
     </div>
