@@ -5,6 +5,7 @@ namespace App\Controller;
 use App\Entity\Article;
 use App\Form\ArticleType;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\Annotation\Route;
 
 class BlogController extends AbstractController
@@ -32,10 +33,20 @@ class BlogController extends AbstractController
     /**
      * @Route("/blog/nouvel-article", name="blog_new")
      */
-    public function blog_new() {
+    public function blog_new(Request $request) {
 
         $article = new Article();
         $form = $this->createForm(ArticleType::class, $article);
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid()) {
+            $em = $this->getDoctrine()->getManager();
+            $em->persist($article);
+            $em->flush();
+            $this->addFlash('success', "L'article a bien été créé.");
+            return $this->redirectToRoute('blog_new');
+        }
+
 
         return $this->render('blog/blog_new.html.twig', [
             'form' => $form->createView(),

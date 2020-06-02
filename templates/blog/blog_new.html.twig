@@ -7,10 +7,28 @@
     <div class="jumbotron">
         <h1 class="display-4">Nouvel Article</h1>
         <p class="lead">Créez un article</p>
+        {% include '_partials/flash.html.twig' %}
         <hr class="my-4">
     </div>
 
     {# FORM #}
-    {{ form(form) }}
+    {{ form_start(form) }}
+
+    {{ form_widget(form) }}
+
+{#    <div class="row">#}
+{#        <div class="col-lg-10">#}
+{#            {{ form_row(form.title) }}#}
+{#        </div>#}
+{#        <div class="col-lg-2 pt-4">#}
+{#            <button type="submit" class="btn btn-primary">Valider</button>#}
+{#        </div>#}
+{#    </div>#}
+
+{#    {{ form_row(form.text) }}#}
+
+     <button type="submit" class="btn btn-primary">Valider</button>
+
+    {{ form_end(form) }}
 
 {% endblock %}
