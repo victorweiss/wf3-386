@@ -2,6 +2,8 @@
 
 namespace App\Controller;
 
+use App\Entity\Article;
+use App\Form\ArticleType;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\Routing\Annotation\Route;
 
@@ -32,8 +34,11 @@ class BlogController extends AbstractController
      */
     public function blog_new() {
 
-        return $this->render('blog/blog_new.html.twig', [
+        $article = new Article();
+        $form = $this->createForm(ArticleType::class, $article);
 
+        return $this->render('blog/blog_new.html.twig', [
+            'form' => $form->createView(),
         ]);
     }
 
