@@ -75,6 +75,9 @@
     "doctrine/reflection": {
         "version": "1.2.1"
     },
+    "doctrine/sql-formatter": {
+        "version": "1.1.0"
+    },
     "egulias/email-validator": {
         "version": "2.1.17"
     },
@@ -189,6 +192,9 @@
     },
     "symfony/dependency-injection": {
         "version": "v5.0.8"
+    },
+    "symfony/deprecation-contracts": {
+        "version": "v2.1.2"
     },
     "symfony/doctrine-bridge": {
         "version": "v5.0.8"
@@ -371,6 +377,9 @@
     "symfony/polyfill-php73": {
         "version": "v1.17.0"
     },
+    "symfony/polyfill-php80": {
+        "version": "v1.17.0"
+    },
     "symfony/process": {
         "version": "v5.0.8"
     },
@@ -525,5 +534,11 @@
     },
     "webmozart/assert": {
         "version": "1.8.0"
+    },
+    "zendframework/zend-code": {
+        "version": "3.4.1"
+    },
+    "zendframework/zend-eventmanager": {
+        "version": "3.2.1"
     }
 }
