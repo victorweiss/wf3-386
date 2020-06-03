@@ -6,7 +6,6 @@ use App\Entity\Contact;
 use App\Entity\ContactPro;
 use App\Repository\ContactProRepository;
 use App\Repository\ContactRepository;
-use App\Repository\ProfilRepository;
 use App\Service\EmailService;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
@@ -49,8 +48,7 @@ class BaseController extends AbstractController
     public function contact(
         Request $request,
         EmailService $emailService,
-        ContactRepository $contactRepository,
-        ProfilRepository $profilRepository
+        ContactRepository $contactRepository
     ) {
         $em = $this->getDoctrine()->getManager();
 
@@ -61,15 +59,15 @@ class BaseController extends AbstractController
             $email = $request->request->get('email');
             $message = $request->request->get('message');
 
-            // Je récupère le profil de Victor
-            $victor = $profilRepository->find(1);
-            // dd($victor); // Je vérifie que je l'ai bien récupéré
-
             $contact = (new Contact())
                 ->setEmail($email)
                 ->setMessage($message)
-                ->setProfil($victor)
             ;
+
+            dd($this->getUser());
+            // if ($this->getUser()) {
+            //
+            // }
 
             $em->persist($contact);
             $em->flush();

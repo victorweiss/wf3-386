@@ -34,10 +34,9 @@ class Contact
     private $createdAt;
 
     /**
-     * @ORM\ManyToOne(targetEntity=Profil::class, inversedBy="contacts")
-     * @ORM\JoinColumn(nullable=false)
+     * @ORM\ManyToOne(targetEntity=User::class, inversedBy="contacts")
      */
-    private $profil;
+    private $user;
 
     public function __construct() {
         $this->createdAt = new DateTime();
@@ -84,14 +83,14 @@ class Contact
         return $this;
     }
 
-    public function getProfil(): ?Profil
+    public function getUser(): ?User
     {
-        return $this->profil;
+        return $this->user;
     }
 
-    public function setProfil(?Profil $profil): self
+    public function setUser(?User $user): self
     {
-        $this->profil = $profil;
+        $this->user = $user;
 
         return $this;
     }
