@@ -31,15 +31,15 @@
 
         <hr>
 
-        {% for contact in contacts %}
-            <div class="border rounded mb-4 p-4">
-                <h6>
-                    Publié par {{ contact.profil.prenom }} {{ contact.profil.nom }}
-                    <small><i>({{ contact.email }}, le {{ contact.createdAt|date("d/m/Y à H\\hi") }})</i></small>
-                </h6>
-                <p>{{ contact.message|nl2br }}</p>
-            </div>
-        {% endfor %}
+{#        {% for contact in contacts %}#}
+{#            <div class="border rounded mb-4 p-4">#}
+{#                <h6>#}
+{#                    Publié par {{ contact.profil.prenom }} {{ contact.profil.nom }}#}
+{#                    <small><i>({{ contact.email }}, le {{ contact.createdAt|date("d/m/Y à H\\hi") }})</i></small>#}
+{#                </h6>#}
+{#                <p>{{ contact.message|nl2br }}</p>#}
+{#            </div>#}
+{#        {% endfor %}#}
 
 
     </div>

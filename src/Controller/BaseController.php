@@ -58,16 +58,12 @@ class BaseController extends AbstractController
             // On récupère les 2 input du formulaire
             $email = $request->request->get('email');
             $message = $request->request->get('message');
-
+            dd($this->getUser());
             $contact = (new Contact())
                 ->setEmail($email)
                 ->setMessage($message)
+                ->setUser($this->getUser())
             ;
-
-            dd($this->getUser());
-            // if ($this->getUser()) {
-            //
-            // }
 
             $em->persist($contact);
             $em->flush();
