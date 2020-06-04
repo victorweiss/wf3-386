@@ -3,6 +3,9 @@
 {% block title %}Log in!{% endblock %}
 
 {% block body %}
+
+{% include '_partials/flash.html.twig' %}
+
 <form method="post">
     {% if error %}
         <div class="alert alert-danger">{{ error.messageKey|trans(error.messageData, 'security') }}</div>
@@ -38,5 +41,9 @@
     <button class="btn btn-lg btn-primary" type="submit">
         Sign in
     </button>
+
+    <div class="mt-5 text-center">
+        Pas encore de compte ? <a href="{{ path('app_register') }}">Inscrivez-vous</a>
+    </div>
 </form>
 {% endblock %}

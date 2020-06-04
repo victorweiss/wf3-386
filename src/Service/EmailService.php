@@ -4,6 +4,7 @@ namespace App\Service;
 
 use App\Entity\Contact;
 use App\Entity\ContactPro;
+use App\Entity\User;
 use Symfony\Component\Mailer\MailerInterface;
 use Symfony\Bridge\Twig\Mime\TemplatedEmail;
 
@@ -26,13 +27,13 @@ class EmailService {
         $this->mailer = $mailer;
     }
 
-    public function sendEmail($data) {
+    private function sendEmail($data) {
 
         $to = $data['to'] ?? $this->MY_EMAIL;
         if ($this->APP_ENV == 'dev') { $to = $this->MY_EMAIL; } // Redirection DEV
 
         $email = (new TemplatedEmail())
-            ->from($data['from'] ?? $this->MY_EMAIL)
+            ->from($data['from'] ?? 'demo.wf3.victor@gmail.com')
             ->to($to)
             ->subject($data['subject'])
             ->htmlTemplate($data['template'])
@@ -41,7 +42,7 @@ class EmailService {
         // dd($email);
 
         try {
-            // $this->mailer->send($email);
+            $this->mailer->send($email);
             return true;
         } catch (\Exception $e) {
             throw $e;
@@ -64,6 +65,17 @@ class EmailService {
             'template' => 'emails/contact_pro.email.twig',
             'context' => [
                 'contactPro' => $contactPro
+            ]
+        ]);
+    }
+
+    public function registrationConfirmEmail(User $user) {
+        return $this->sendEmail([
+            'to' => $user->getEmail(),
+            'subject' => "Confirmez votre email",
+            'template' => 'emails/registration_confirm_email.email.twig',
+            'context' => [
+                'user' => $user
             ]
         ]);
     }

@@ -58,10 +58,31 @@ class User implements UserInterface
      */
     private $contacts;
 
+    /**
+     * @ORM\Column(type="smallint")
+     */
+    private $active = 0;
+
+    /**
+     * @ORM\Column(type="string", length=255)
+     */
+    private $token;
+
+    /**
+     * @ORM\OneToMany(targetEntity=Article::class, mappedBy="user")
+     */
+    private $articles;
+
 
     public function __construct() {
         $this->createdAt = new \DateTime();
         $this->contacts = new ArrayCollection();
+        $this->articles = new ArrayCollection();
+    }
+
+
+    public function getFullname() {
+        return $this->firstname.' '.$this->lastname;
     }
 
 
@@ -205,6 +226,61 @@ class User implements UserInterface
             // set the owning side to null (unless already changed)
             if ($contact->getUser() === $this) {
                 $contact->setUser(null);
+            }
+        }
+
+        return $this;
+    }
+
+    public function getActive(): ?int
+    {
+        return $this->active;
+    }
+
+    public function setActive(int $active): self
+    {
+        $this->active = $active;
+
+        return $this;
+    }
+
+    public function getToken(): ?string
+    {
+        return $this->token;
+    }
+
+    public function setToken(string $token): self
+    {
+        $this->token = $token;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|Article[]
+     */
+    public function getArticles(): Collection
+    {
+        return $this->articles;
+    }
+
+    public function addArticle(Article $article): self
+    {
+        if (!$this->articles->contains($article)) {
+            $this->articles[] = $article;
+            $article->setUser($this);
+        }
+
+        return $this;
+    }
+
+    public function removeArticle(Article $article): self
+    {
+        if ($this->articles->contains($article)) {
+            $this->articles->removeElement($article);
+            // set the owning side to null (unless already changed)
+            if ($article->getUser() === $this) {
+                $article->setUser(null);
             }
         }
 

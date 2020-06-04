@@ -8,7 +8,12 @@
         <div class="col-lg-8 mx-auto">
 
             <div class="jumbotron">
-                <a href="{{ path('blog_new', { slug: article.slug }) }}" class="float-right">Modifier --></a>
+
+                {# Si l'article == le user connecté #}
+                {% if article.user == app.user %}
+                    <a href="{{ path('blog_new', { slug: article.slug }) }}" class="float-right">Modifier --></a>
+                {% endif %}
+
                 <a href="{{ path('blog_list') }}"><-- Retour au blog</a>
                 <h1 class="display-4">{{ article.title }}</h1>
                 <hr class="my-4">
@@ -16,6 +21,11 @@
 
             <div>
                 {{ article.text|nl2br }}
+            </div>
+
+            <div class="mt-5">
+                <hr>
+                <i>Auteur : {{ article.user.fullname }}</i>
             </div>
 
         </div>

@@ -34,15 +34,19 @@ class BlogController extends AbstractController
     }
 
     /**
-     * @Route("/blog/nouvel-article/{slug}", name="blog_new")
+     * @Route("/espace-membre/blog/nouvel-article/{slug}", name="blog_new")
      */
     public function blog_new(
-        // Le ParamConverter converti $id en Article
+        // Le ParamConverter converti $slug en Article
         // Le ? dit que $article = Article|null
         ?Article $article,
         Request $request,
         SluggerInterface $slugger
     ) {
+        // Si il y a un article et que l'auteur de l'article N'EST PAS le user connecté --> Exception !!
+        if ($article && $article->getUser() !== $this->getUser()) {
+            throw new \Exception("Vous n'avez pas le droit de modifier cet article");
+        }
 
         // Si aucun article n'a été trouvé..
         // .. Utiliser une nouvelle instance d'Article
@@ -70,9 +74,12 @@ class BlogController extends AbstractController
             if ($new) {
                 // On transforme le titre en slug
                 $slug = $slugger->slug($article->getTitle());
-                $article->setSlug($slug);
+                $article
+                    ->setSlug($slug)
+                    ->setUser( $this->getUser() )
+                ;
             }
-
+            
             $em = $this->getDoctrine()->getManager();
             $em->persist($article);
             $em->flush();
